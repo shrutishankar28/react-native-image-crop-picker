@@ -630,7 +630,13 @@ RCT_EXPORT_METHOD(openCropper:(NSDictionary *)options
                                        withSize:[NSNumber numberWithUnsignedInteger:imageResult.data.length]
                                        withData:[[self.options objectForKey:@"includeBase64"] boolValue] ? [imageResult.data base64EncodedStringWithOptions:0] : [NSNull null]]);
 
-    [topViewController dismissViewControllerAnimated:YES completion:nil];
+//    [topViewController dismissViewControllerAnimated:YES completion:nil];
+    if (self.cropOnly == false) {
+        UIViewController *topViewController = controller.presentingViewController.presentingViewController;
+        [topViewController dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [controller dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 // at the moment it is not possible to upload image by reading PHAsset
